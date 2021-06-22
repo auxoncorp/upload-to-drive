@@ -23,6 +23,8 @@ const driveLink = `https://drive.google.com/drive/folders/${folder}`
 let filename = target.split('/').pop();
 
 async function main() {
+  actions.info(`target ${target}...`)
+  actions.info(`filename ${filename}...`)
   actions.setOutput(link, driveLink);
 
   if (fs.lstatSync(target).isDirectory()){
@@ -72,6 +74,7 @@ function zipDirectory(source, out) {
 function uploadToDrive() {
   actions.info('Uploading file to Goole Drive...');
   drive.files.create({
+    supportsAllDrives: true,
     requestBody: {
       name: filename,
       parents: [folder]
